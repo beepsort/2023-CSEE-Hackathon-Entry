@@ -1,0 +1,12 @@
+{
+    "compilation": {
+        "compilers_to_recognize": [
+            {
+                "executable": "/opt/gbdk/bin/lcc",
+                "flags_to_add": ["-I/opt/gbdk/include"],
+                "flags_to_remove": ["-Wall"]
+            }
+        ],
+        "compilers_to_exclude": []
+    }
+}
