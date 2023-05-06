@@ -10,7 +10,7 @@ LCC = lcc
 # LCCFLAGS = -debug
 
 # You can set the name of the .gb ROM file here
-PROJECTNAME    = Example
+PROJECTNAME    = battleships
 
 SRCDIR      = src
 OBJDIR      = obj
