@@ -1,0 +1,4 @@
+#include "game_states.h"
+
+GAMESTATES CUR_GAMESTATE = MENU;
+GAMESTATES NXT_GAMESTATE = MENU;
