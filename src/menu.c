@@ -6,6 +6,7 @@
 
 #include "game_states.h"
 #include "menu.h"
+#include "sprite_alloc.h"
 
 extern GAMESTATES NXT_GAMESTATE;
 
@@ -23,20 +24,21 @@ void render_ship()
 
 void render_text(uint8_t x, uint8_t y, uint8_t n_sprites, const uint8_t * tiles)
 {
-    static uint8_t cur_sprite = 0;
     for (uint8_t i=0; i<n_sprites; i++) {
+        uint8_t cur_sprite = SPRALLOC();
+        if (cur_sprite == BADSPRALLOC) return; // no sprites available
         set_sprite_tile(cur_sprite, tiles[i]);
         move_sprite(cur_sprite, 8+8*(x+i), 8+8*y);
-        cur_sprite++;
     }
 }
 
 void init_menu()
 {
-    SHOW_SPRITES;
-    SHOW_BKG;
+    HIDE_SPRITES;
+    HIDE_BKG;
     HIDE_WIN;
-    
+
+    SPRFREEALL();
     set_bkg_data(0, 20*7, titleship_tiles);
     render_ship();
     set_sprite_data(0, 64u, font_tiles);
@@ -46,6 +48,9 @@ void init_menu()
     render_text(10,5,5,txt_battleships+6);
     render_text(4,14,5,txt_press_start);
     render_text(10,14,5,txt_press_start+6);
+
+    SHOW_SPRITES;
+    SHOW_BKG;
 }
 
 void update_menu()
