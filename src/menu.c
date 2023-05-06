@@ -3,7 +3,6 @@
 #include "../res/font.h"
 #include "../res/chars.h"
 #include "../res/titleship.h"
-#include "../res/titleship_tilemap.h"
 
 #include "game_states.h"
 #include "menu.h"

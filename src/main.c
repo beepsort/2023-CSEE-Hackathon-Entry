@@ -6,7 +6,7 @@
 #include "menu.h"
 #include "setup.h"
 #include "play.h"
-#include "pause.h"
+#include "gameover.h"
 
 extern GAMESTATES CUR_GAMESTATE;
 extern GAMESTATES NXT_GAMESTATE;
@@ -36,9 +36,9 @@ void main(void)
             update_play();
             draw_play();
             break;
-        case PAUSE:
-            update_pause();
-            draw_pause();
+        case GAMEOVER:
+            update_gameover();
+            draw_gameover();
             break;
         }
 
@@ -53,8 +53,8 @@ void main(void)
             case PLAY:
                 init_play();
                 break;
-            case PAUSE:
-                init_pause();
+            case GAMEOVER:
+                init_gameover();
                 break;
             }
             CUR_GAMESTATE = NXT_GAMESTATE;
