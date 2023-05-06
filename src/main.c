@@ -21,6 +21,9 @@ void main(void)
 {
 	init_gfx();
     init_menu();
+
+    CUR_GAMESTATE = MENU;
+    NXT_GAMESTATE = MENU;
     
     // Loop forever
     while(1) {
@@ -32,6 +35,7 @@ void main(void)
         case SETUP:
             update_setup();
             draw_setup();
+            break;
         case PLAY:
             update_play();
             draw_play();

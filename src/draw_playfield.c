@@ -14,15 +14,15 @@ void draw_playfield()
 
 void draw_boat(boat * b)
 {
-    if (b->visible == false && b->placed == false) return;
-    else if (b->visible == false && b->placed == true) {
+    if (b->visible == NONE && b->placed == false) return;
+    else if (b->visible == NONE && b->placed == true) {
         for (uint8_t i=0; i<(b->size); i++) {
             hide_sprite(b->owned_sprite_ids[i]);
         }
         return;
     }
     uint8_t sprite_base = b->rotation==VERTICAL ? 1 : 7;
-    if (b->placed == false) sprite_base += 3;
+    if (b->placed == false || b->destroyed == true) sprite_base += 3;
     uint8_t boat_x = b->x;
     uint8_t boat_y = b->y;
     
@@ -37,6 +37,9 @@ void draw_boat(boat * b)
         }
         else {
             isprite = sprite_base + 1;
+        }
+        if (b->visible == DAMAGEONLY && b->destroyed == false) {
+            isprite = (b->hits)[i] == GOOD ? 0 : 15;
         }
         // 8 and 16 offsets are a hack, there was a positioning bug but i dont have time to fix it
         uint8_t x = 8 + 8 * (GAME_BOARD_BEGIN_X + boat_x);

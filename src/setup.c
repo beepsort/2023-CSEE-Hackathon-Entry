@@ -14,7 +14,8 @@
 
 extern GAMESTATES NXT_GAMESTATE;
 extern player PLAYERS [2];
-static PLAYNAME cur_player = PLAYER_A;
+extern PLAYNAME CUR_PLAYER;
+static uint8_t player_name_spr;
 
 void show_instructions()
 {
@@ -34,7 +35,10 @@ void init_setup()
     players_init();
     set_win_data(0, 64u, font_tiles);
     draw_playfield();
-    set_sprite_data(0, 13, playsprites_tiles);
+    set_sprite_data(0, 20, playsprites_tiles);
+    player_name_spr = SPRALLOC();
+    move_sprite(player_name_spr, 16, 16);
+    set_sprite_tile(player_name_spr, 16+CUR_PLAYER);
     SHOW_BKG;
     SHOW_SPRITES;
 }
@@ -45,12 +49,12 @@ void update_setup()
     // when a button pressed then hide window
     // allow movement/rotation of boats
     // setup for next player
-    boat * cur_boat = player_get_placeable_boat(&(PLAYERS[cur_player]));
+    boat * cur_boat = player_get_placeable_boat(&(PLAYERS[CUR_PLAYER]));
     if (cur_boat == 0) {
         // next player
-        player_hideall(&(PLAYERS[cur_player]));
-        if (cur_player == PLAYER_A) {
-            cur_player = PLAYER_B;
+        player_hideall(&(PLAYERS[CUR_PLAYER]));
+        if (CUR_PLAYER == PLAYER_A) {
+            CUR_PLAYER = PLAYER_B;
             return;
         }
         else { // move to the next game state
@@ -58,30 +62,27 @@ void update_setup()
             return;
         }
     }
-    cur_boat->visible = true;
-    switch (joypad_edge()) {
-    case J_UP:
+    cur_boat->visible = VISIBLE;
+    uint8_t jp = joypad_edge();
+    if (jp & J_UP) {
         boat_mv_up(cur_boat);
-        break;
-    case J_DOWN:
+    }
+    if (jp & J_DOWN) {
         boat_mv_down(cur_boat);
-        break;
-    case J_LEFT:
+    }
+    if (jp & J_LEFT) {
         boat_mv_left(cur_boat);
-        break;
-    case J_RIGHT:
+    }
+    if (jp & J_RIGHT) {
         boat_mv_right(cur_boat);
-        break;
-    case J_B:
+    }
+    if (jp & J_B) {
         boat_rot(cur_boat);
-        break;
-    case J_A:
+    }
+    if (jp & J_A) {
         // TODO: CHECK POSSIBLE TO PLACE
         // place down
         cur_boat->placed = true;
-        break;
-    default:
-        break;
     }
 }
 
@@ -91,4 +92,6 @@ void draw_setup()
     // display boats being placed
     draw_boats(&(PLAYERS[PLAYER_A]));
     draw_boats(&(PLAYERS[PLAYER_B]));
+    move_sprite(player_name_spr, 16, 16);
+    set_sprite_tile(player_name_spr, 16+CUR_PLAYER);
 }

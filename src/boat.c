@@ -7,13 +7,15 @@
 void boat_init(boat * b, uint8_t size)
 {
     b->placed = false;
-    b->visible = false;
+    b->visible = NONE;
     b->x = GAME_SIZE_X/2 - 1;
     b->y = GAME_SIZE_Y/2 - 1;
     b->size = size;
     b->rotation = HORIZONTAL;
-    for (uint8_t i=0; i<MAX_BOAT_SIZE; i++) {
+    b->destroyed = false;
+    for (uint8_t i=0; i<size; i++) {
         (b->owned_sprite_ids)[i] = SPRALLOC();
+        (b->hits)[i] = GOOD;
     }
 }
 
@@ -84,3 +86,30 @@ void boat_rot(boat * b)
     }
 }
 
+void boat_destroyed(boat * b)
+{
+    for (uint8_t i=0; i<b->size; i++) {
+        if ((b->hits)[i] == GOOD) return;
+    }
+    b->destroyed = true;
+    return;
+}
+
+bool boat_hit(boat * b, uint8_t x, uint8_t y)
+{
+    bool hit = false;
+    uint8_t boat_x = b->x;
+    uint8_t boat_y = b->y;
+    uint8_t * boat_pos_iter = b->rotation==VERTICAL ? &boat_y : &boat_x;
+    for (uint8_t i=0; i<b->size; i++) {
+        if (boat_x == x && boat_y == y) {
+            // FOUND A HIT
+            hit = true;
+            b->hits[i] = DAMAGE;
+            break;
+        }
+        (*boat_pos_iter)++;
+    }
+    boat_destroyed(b);
+    return hit;
+}

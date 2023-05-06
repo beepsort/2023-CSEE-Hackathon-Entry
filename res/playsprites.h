@@ -10,8 +10,8 @@
 #define playsprites_TILE_W 8
 #define playsprites_TILE_H 8
 #define playsprites_WIDTH 32
-#define playsprites_HEIGHT 32
-#define playsprites_TILE_COUNT 16
+#define playsprites_HEIGHT 40
+#define playsprites_TILE_COUNT 20
 #define playsprites_PALETTE_COUNT 1
 #define playsprites_COLORS_PER_PALETTE 4
 #define playsprites_TOTAL_COLORS 4
@@ -20,8 +20,8 @@
 BANKREF_EXTERN(playsprites)
 
 extern const palette_color_t playsprites_palettes[4];
-extern const uint8_t playsprites_tiles[256];
+extern const uint8_t playsprites_tiles[320];
 
-extern const unsigned char playsprites_map[16];
+extern const unsigned char playsprites_map[20];
 
 #endif
