@@ -33,6 +33,7 @@ void init_setup()
 
     SPRFREEALL();
     players_init();
+    CUR_PLAYER = PLAYER_A;
     set_win_data(0, 64u, font_tiles);
     draw_playfield();
     set_sprite_data(0, 20, playsprites_tiles);

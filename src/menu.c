@@ -40,6 +40,7 @@ void init_menu()
 
     SPRFREEALL();
     set_bkg_data(0, 20*7, titleship_tiles);
+    fill_bkg_rect(0,0,20,18,0);
     render_ship();
     set_sprite_data(0, 64u, font_tiles);
     set_sprite_tile(0, 1);
