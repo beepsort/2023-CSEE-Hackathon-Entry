@@ -113,3 +113,23 @@ bool boat_hit(boat * b, uint8_t x, uint8_t y)
     boat_destroyed(b);
     return hit;
 }
+
+bool boat_is_collide(boat * b1, boat * b2)
+{
+    uint8_t b1_x = b1->x;
+    uint8_t b1_y = b1->y;
+    uint8_t b2_x;
+    uint8_t b2_y;
+    uint8_t * b1_iter = b1->rotation==VERTICAL ? &b1_y : &b1_x;
+    uint8_t * b2_iter = b2->rotation==VERTICAL ? &b2_y : &b2_x;
+    for (uint8_t i=0; i<b1->size; i++) {
+        b2_x = b2->x; 
+        b2_y = b2->y; 
+        for (uint8_t j=0; j<b2->size; j++) {
+            if (b1_x==b2_x && b1_y==b2_y) return true;
+            (*b2_iter)++;
+        }
+        (*b1_iter)++;
+    }
+    return false;
+}

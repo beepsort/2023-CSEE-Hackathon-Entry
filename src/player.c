@@ -62,6 +62,17 @@ bool player_lost(player * p)
     return true;
 }
 
+bool player_can_place(player * p, boat * b)
+{
+    boat * boat_it;
+    for (uint8_t i=0; i<NUM_BOATS; i++) {
+        boat_it = &((p->boats)[i]);
+        if (boat_it->placed == false) continue;
+        if (boat_is_collide(b, boat_it)) return false;
+    }
+    return true;
+}
+
 boat * player_get_placeable_boat(player * p)
 {
     for (uint8_t i=0; i<NUM_BOATS; i++) {

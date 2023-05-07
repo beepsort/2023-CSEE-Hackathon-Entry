@@ -81,9 +81,10 @@ void update_setup()
         boat_rot(cur_boat);
     }
     if (jp & J_A) {
-        // TODO: CHECK POSSIBLE TO PLACE
-        // place down
-        cur_boat->placed = true;
+        if (player_can_place(&(PLAYERS[CUR_PLAYER]), cur_boat)) {
+            // place down
+            cur_boat->placed = true;
+        }
     }
 }
 

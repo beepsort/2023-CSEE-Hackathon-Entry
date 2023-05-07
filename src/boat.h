@@ -48,5 +48,6 @@ void boat_mv_left(boat * b);
 void boat_mv_right(boat * b);
 void boat_rot(boat * b);
 bool boat_hit(boat * b, uint8_t x, uint8_t y);
+bool boat_is_collide(boat * b1, boat * b2);
 
 #endif

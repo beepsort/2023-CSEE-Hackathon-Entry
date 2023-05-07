@@ -22,6 +22,7 @@ void player_showall(player * p);
 void player_showdamage(player * p);
 bool player_hit(player * p, uint8_t x, uint8_t y);
 bool player_lost(player * p);
+bool player_can_place(player * p, boat * b);
 boat * player_get_placeable_boat(player * p); // returns NULL on failure
 
 #endif
