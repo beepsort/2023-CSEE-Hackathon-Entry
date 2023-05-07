@@ -98,6 +98,6 @@ void draw_setup()
     // display boats being placed
     draw_boats(&(PLAYERS[PLAYER_A]));
     draw_boats(&(PLAYERS[PLAYER_B]));
-    move_sprite(player_name_spr, 16, 16);
+    move_sprite(player_name_spr, 16, 20);
     set_sprite_tile(player_name_spr, 16+CUR_PLAYER);
 }
