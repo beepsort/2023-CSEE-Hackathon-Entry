@@ -9,9 +9,9 @@
 #define playbg_TILE_ORIGIN 0
 #define playbg_TILE_W 8
 #define playbg_TILE_H 8
-#define playbg_WIDTH 32
-#define playbg_HEIGHT 16
-#define playbg_TILE_COUNT 8
+#define playbg_WIDTH 24
+#define playbg_HEIGHT 8
+#define playbg_TILE_COUNT 3
 #define playbg_PALETTE_COUNT 1
 #define playbg_COLORS_PER_PALETTE 4
 #define playbg_TOTAL_COLORS 4
@@ -20,8 +20,8 @@
 BANKREF_EXTERN(playbg)
 
 extern const palette_color_t playbg_palettes[4];
-extern const uint8_t playbg_tiles[128];
+extern const uint8_t playbg_tiles[48];
 
-extern const unsigned char playbg_map[8];
+extern const unsigned char playbg_map[3];
 
 #endif

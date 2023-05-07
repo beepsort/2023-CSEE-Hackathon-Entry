@@ -4,6 +4,7 @@
 #include "../res/playsprites.h"
 #include "../res/font.h"
 #include "../res/chars.h"
+#include "../res/messages.h"
 
 #include "game_states.h"
 #include "play.h"
@@ -28,10 +29,12 @@ void init_play()
     HIDE_BKG;
     HIDE_SPRITES;
     HIDE_WIN;
-    set_win_data(0, 64u, font_tiles);
+    set_win_data(8, 64u, font_tiles);
     SPRFREEALL();
     set_sprite_data(0, 20, playsprites_tiles);
     draw_playfield();
+    set_win_tiles(0,0,20,1,messages_play_help1);
+    move_win(7,132);
     cursor_spr = SPRALLOC();
     if (cursor_spr == 0) {
         // cursor is higher priority than all other sprites
@@ -45,6 +48,7 @@ void init_play()
     CUR_PLAYER = PLAYER_A;
     SHOW_BKG;
     SHOW_SPRITES;
+    SHOW_WIN;
 }
 
 void disp_turn_end(bool hit)
@@ -60,7 +64,7 @@ void draw_shots()
     for (uint8_t y=0; y<GAME_SIZE_Y; y++) {
         for (uint8_t x=0; x<GAME_SIZE_X; x++) {
             if (shot_record[CUR_PLAYER][x][y]) {
-                set_bkg_tile_xy(GAME_BOARD_BEGIN_X+x, GAME_BOARD_BEGIN_Y+y, 5);
+                set_bkg_tile_xy(GAME_BOARD_BEGIN_X+x, GAME_BOARD_BEGIN_Y+y, 2);
             }
         }
     }
@@ -120,9 +124,11 @@ void draw_play()
     set_sprite_tile(player_name_spr, 16+CUR_PLAYER);
     if (has_shot == false) {
         set_sprite_tile(cursor_spr, 13);
+        set_win_tiles(0,0,20,1,messages_play_help1);
     }
     else {
         set_sprite_tile(cursor_spr, 0);
+        set_win_tiles(0,0,20,1,messages_play_help2);
     }
     uint8_t x = 8 + 8 * (GAME_BOARD_BEGIN_X + cursor_x);
     uint8_t y = 16 + 8 * (GAME_BOARD_BEGIN_Y + cursor_y);

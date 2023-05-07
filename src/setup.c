@@ -4,6 +4,7 @@
 #include "../res/font.h"
 #include "../res/chars.h"
 #include "../res/playsprites.h"
+#include "../res/messages.h"
 
 #include "game_states.h"
 #include "draw_playfield.h"
@@ -34,14 +35,17 @@ void init_setup()
     SPRFREEALL();
     players_init();
     CUR_PLAYER = PLAYER_A;
-    set_win_data(0, 64u, font_tiles);
+    set_win_data(8, 64, font_tiles);
     draw_playfield();
+    set_win_tiles(0,0,20,1,messages_setup_help);
+    move_win(7,132);
     set_sprite_data(0, 20, playsprites_tiles);
     player_name_spr = SPRALLOC();
     move_sprite(player_name_spr, 16, 16);
     set_sprite_tile(player_name_spr, 16+CUR_PLAYER);
     SHOW_BKG;
     SHOW_SPRITES;
+    SHOW_WIN;
 }
 
 void update_setup()
